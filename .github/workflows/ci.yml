@@ -1,0 +1,26 @@
+name: CI
+
+on:
+  push:
+    branches: 
+      - master
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v1
+    - name: Login to GPR for Docker
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: |
+        docker login docker.pkg.github.com -u francisfuzz -p $GITHUB_TOKEN
+
+    - name: Build in virtual environment
+      run: |        
+        docker build -t docker.pkg.github.com/$GITHUB_REPOSITORY/arde:latest .
+
+    # https://help.github.com/en/github/managing-packages-with-github-packages/configuring-docker-for-use-with-github-packages#publishing-a-package
+    - name: Publish to GPR
+      run: |        
+        docker push docker.pkg.github.com/$GITHUB_REPOSITORY/arde:latest
