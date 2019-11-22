@@ -54,9 +54,9 @@ jobs:
     # https://help.github.com/en/github/managing-packages-with-github-packages/configuring-docker-for-use-with-github-packages#authenticating-with-the-github_token
     - name: Login to GPR for Docker
       env:
-        GITHUB_TOKEN: ${{ secrets.BOT_TOKEN }}
+        BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
       run: |
-        docker login docker.pkg.github.com -u francisfuzz -p $GITHUB_TOKEN
+        docker login docker.pkg.github.com -u ma-kee-na -p $GITHUB_TOKEN
 
     # https://help.github.com/en/github/managing-packages-with-github-packages/configuring-docker-for-use-with-github-packages#publishing-a-package
     - name: Publish to GPR
