@@ -21,14 +21,14 @@ jobs:
     # https://docs.docker.com/engine/reference/commandline/save/
     - name: Save in virtual environment
       run: |
-        docker save docker.pkg.github.com/francisfuzz/actions-registry-docker-example/arde:latest | gzip > docker.pkg.github.com/francisfuzz/actions-registry-docker-example/arde:latest.tar.gz
+        docker save docker.pkg.github.com/francisfuzz/actions-registry-docker-example/arde:latest | gzip > myimage_latest.tar.gz
 
     # https://help.github.com/en/actions/automating-your-workflow-with-github-actions/persisting-workflow-data-using-artifacts
     - name: Upload image as artifact
       uses: actions/upload-artifact@v1
       with:
         name: image
-        path: docker.pkg.github.com/francisfuzz/actions-registry-docker-example/arde:latest.tar.gz
+        path: myimage_latest.tar.gz
 
   download_and_publish:
     needs: build_and_upload
@@ -40,12 +40,11 @@ jobs:
       with:
         name: image
 
+    # https://docs.docker.com/engine/reference/commandline/import/
     - name: Import image locally
       run: |
         ls -Ralth 
-
-        # https://docs.docker.com/engine/reference/commandline/import/
-        cat image/docker.pkg.github.com/francisfuzz/actions-registry-docker-example/arde:latest.tar.gz | docker import - docker.pkg.github.com/francisfuzz/actions-registry-docker-example/arde:latest
+        cat image/myimage_latest.tar.gz | docker import - docker.pkg.github.com/francisfuzz/actions-registry-docker-example/arde:latest
 
     # https://docs.docker.com/engine/reference/commandline/images/
     - name: List images
