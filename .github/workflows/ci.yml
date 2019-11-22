@@ -61,4 +61,4 @@ jobs:
     # https://help.github.com/en/github/managing-packages-with-github-packages/configuring-docker-for-use-with-github-packages#publishing-a-package
     - name: Publish to GPR
       run: |        
-        docker push image/docker.pkg.github.com/$GITHUB_REPOSITORY/arde:latest
+        docker push docker.pkg.github.com/$GITHUB_REPOSITORY/arde:latest
