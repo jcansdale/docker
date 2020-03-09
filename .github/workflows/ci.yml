@@ -15,8 +15,9 @@ jobs:
 
     # https://docs.docker.com/engine/reference/commandline/build/
     - name: Build in virtual environment
-      run: |        
-        docker build -t docker.pkg.github.com/$GITHUB_REPOSITORY/arde:latest .
+      run: |
+        LOWERCASE_GITHUB_REPOSITORY=${GITHUB_REPOSITORY,,}
+        docker build -t docker.pkg.github.com/${LOWERCASE_GITHUB_REPOSITORY}/arde:latest .
 
     # https://docs.docker.com/engine/reference/commandline/save/
     - name: Save in virtual environment
@@ -60,5 +61,6 @@ jobs:
 
     # https://help.github.com/en/github/managing-packages-with-github-packages/configuring-docker-for-use-with-github-packages#publishing-a-package
     - name: Publish to GPR
-      run: |        
-        docker push docker.pkg.github.com/$GITHUB_REPOSITORY/arde:latest
+      run: |
+        LOWERCASE_GITHUB_REPOSITORY=${GITHUB_REPOSITORY,,}
+        docker push docker.pkg.github.com/$LOWERCASE_GITHUB_REPOSITORY/arde:latest
